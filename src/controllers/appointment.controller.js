@@ -1,7 +1,8 @@
 const { Appointment } = require('../db.js');
+const { Appointment } = require('../db.js');
 
 module.exports = {
-  async list(req, res) {
+  async all(req, res) {
     const appointments = await Appointment.scope({ attributes: { include: ['name'] } }).findAll();
     res.status(200).json(appointments);
   },

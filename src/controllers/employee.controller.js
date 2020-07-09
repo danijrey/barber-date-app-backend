@@ -1,7 +1,7 @@
 const { Employee } = require('../db.js');
 
 module.exports = {
-  async list(req, res) {
+  async all(req, res) {
     const employees = await Employee.scope({ attributes: { include: ['name'] } }).findAll();
     res.status(200).json(employees);
   },

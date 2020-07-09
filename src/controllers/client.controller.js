@@ -1,7 +1,7 @@
 const { Client } = require('../db.js');
 
 module.exports = {
-  async list(req, res) {
+  async all(req, res) {
     const clients = await Client.scope({ attributes: { include: ['name'] } }).findAll();
     res.status(200).json(clients );
   },

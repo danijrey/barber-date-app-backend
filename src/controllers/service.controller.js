@@ -1,7 +1,7 @@
 const { Service } = require('../db.js');
 
 module.exports = {
-  async list(req, res) {
+  async all(req, res) {
     const services = await Service.scope({ attributes: { include: ['name'] } }).findAll();
     res.status(200).json(services);
   },
