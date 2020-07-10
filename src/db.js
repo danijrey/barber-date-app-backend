@@ -51,4 +51,10 @@ db.Appointment = db.sequelize.import(
   require('./models/appointment.model.js')
 );
 
+for(let key in db){
+  if (db[key].associate){
+    db[key].associate(db);
+  }
+}
+
 module.exports = db;

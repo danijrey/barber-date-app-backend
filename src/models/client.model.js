@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const clientSchema = {
-    id: {
+    clientId: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,
@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     clientEmail: {
       type: DataTypes.STRING,
       noEmpty: true,
+      validate: {
+        isEmail: true,
+      }
     },
     clientPassword: {
     type: DataTypes.STRING,
@@ -31,10 +34,21 @@ module.exports = (sequelize, DataTypes) => {
   clientOps = {
     tableName: 'clients',
     timestamps: true,
+    defaultScope: {
+      attributes: {
+        exclude: ['clientPassword'],
+      }
+    }
 
   }
 
   const Client = sequelize.define('Client', clientSchema, clientOps);
 
+  Client.associate = (db) => {
+    db.Client.hasMany(db.Appointment);
+   /*  db.Client.belongsToMany(db.Branch, { through: 'ClientBranch' }); */
+
+
+  }
   return Client;
 }

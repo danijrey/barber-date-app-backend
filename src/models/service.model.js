@@ -1,7 +1,10 @@
+const db = require("../db");
+const { Branch } = require("../db");
+
 module.exports = (sequelize, DataTypes) => {
 
   const serviceSchema = {
-    id: {
+    serviceId: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,
@@ -27,6 +30,13 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   const Service = sequelize.define('Service', serviceSchema, serviceOps);
+
+  Service.associate = (db) => {
+    db.Service.belongsToMany(db.Branch, { through: 'ServiceBranch' });
+    db.Service.belongsToMany(db.Employee, { through: 'ServiceEmployee' });
+    db.Service.hasMany(db.Appointment);
+  }
+  
 
   return Service;
 }

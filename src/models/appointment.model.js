@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const appointmentSchema = {
-    id: {
+    appointmentId: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,
@@ -22,7 +22,13 @@ module.exports = (sequelize, DataTypes) => {
 
   }
 
-  const Apponintment = sequelize.define('Apponintment', appointmentSchema, appointmentOps);
+  const Appointment = sequelize.define('Appointment', appointmentSchema, appointmentOps);
 
-  return Apponintment;
+  Appointment.associate = (db) => {
+    db.Appointment.belongsTo(db.Client);
+    db.Appointment.belongsTo(db.Branch);
+    db.Appointment.belongsTo(db.Service);
+    db.Appointment.belongsTo(db.Employee);
+  }
+  return Appointment;
 }

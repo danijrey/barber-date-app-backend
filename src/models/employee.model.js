@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const employeeSchema = {
-    id: {
+    employeeId: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,
@@ -27,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   const Employee = sequelize.define('Employee', employeeSchema, employeeOps);
+
+  Employee.associate = (db) => {
+    db.Employee.belongsTo(db.Branch);
+    db.Employee.belongsToMany(db.Service, { through: 'EmployeeService' });
+    db.Employee.hasMany(db.Appointment);
+  }
 
   return Employee;
 }

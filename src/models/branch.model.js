@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const branchSchema = {
-    id: {
+    branchId: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       noEmpty: true,
     },
-    branchDescrption: {
+    branchDescription: {
       type: DataTypes.STRING,
       noEmpty: true,
     },
@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   const Branch = sequelize.define('Branch', branchSchema, branchOps);
+
+  Branch.associate = (db) => {
+    db.Branch.belongsToMany(db.Service, { through: 'BranchService' });
+    db.Branch.hasMany(db.Employee);
+    db.Branch.hasMany(db.Appointment);
+  }
+
+
 
   return Branch;
 }
