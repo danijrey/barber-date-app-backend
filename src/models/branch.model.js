@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const branchSchema = {
-    branchId: {
+    id: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,

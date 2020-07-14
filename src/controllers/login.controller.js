@@ -3,23 +3,23 @@ const jwt = require('jsonwebtoken');
 const { Client } = require('../db.js');
 
 module.exports = {
-  async signin(req, res) {
+  async login(req, res) {
     try {
-      const { clientId } = req.params;
-      const client = await Client.findOne({ clientEmail: req.body.email });
+      console.dir(req.body)
+      const client = await Client.findOne({ clientEmail: req.body.clientEmail });
 
       if (!client) {
-        throw Error('Invalid email or password');
+        throw Error('Correo inválido');
       }
-
-      const isValid = await bcrypt.compare(req.body.password, user.password);
+      console.dir(client.clientPassword)
+      const isValid = await bcrypt.compare( req.body.clientPassword, client.clientPassword );
 
       if (!isValid) {
-        throw Error('Invalid email or password');
+        throw Error('Contraseña Inválida');
       }
 
       const token = jwt.sign(
-        { id: user._id },
+        { id: client._id },
         process.env.SECRET,
         { expiresIn: 60 * 60 * 24 * 365 },
       );

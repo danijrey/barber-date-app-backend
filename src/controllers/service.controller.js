@@ -1,4 +1,4 @@
-const { Service } = require('../db.js');
+const { Service, Branch } = require('../db.js');
 
 module.exports = {
   async all(req, res) {
@@ -9,12 +9,30 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+  async list(req, res) {
+    try {
+      const { branchId } = req.params;
+      
+      const services = await Branch
+      .scope({ include: Service })
+        .findAll({ where: { id: branchId } });
+       /* services.hasBranch(branchId); */
+
+      
+
+      res.status(200).json(services);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   async create(req, res) {
     try{
     const { branchId } = req.params;
     const services = await Service.create(req.body);
-    services.setBranch(branchId);
+
+    services.addBranch(branchId);
     await services.save();
+
     res.status(200).json(services);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -22,8 +40,8 @@ module.exports = {
   },
   async show(req, res) {
     try{
-    const { serviceId } = req.params;
-    const services = await Service.findByPk(serviceId);
+    const { id } = req.params;
+    const services = await Service.findByPk(id);
     res.status(200).json(services);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -31,8 +49,8 @@ module.exports = {
   },
   async update(req, res) {
     try{
-    const { serviceId } = req.params;
-    let services = await Service.findByPk(serviceId);
+    const { id } = req.params;
+    let services = await Service.findByPk(id);
     services = await services.update(req.body);
     res.status(200).json(services);
     } catch (error) {
@@ -41,8 +59,8 @@ module.exports = {
   },
   async delete(req, res) {
     try{
-    const { serviceId } = req.params;
-    const services = await Service.findByPk(serviceId);
+    const { id } = req.params;
+    const services = await Service.findByPk(id);
     await services.destroy();
     res.status(200).json(services);
     } catch (error) {
@@ -51,3 +69,7 @@ module.exports = {
   }
 
 }
+
+/* const { branchId } = req.params;
+
+const services = await Service.scope({ include: Branch }).findAll(); */

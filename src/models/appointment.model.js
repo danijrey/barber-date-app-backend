@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
   const appointmentSchema = {
-    appointmentId: {
+    id: {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT,

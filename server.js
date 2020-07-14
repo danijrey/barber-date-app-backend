@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const { sequelize } = require('./src/db.js')
 const clientRouter = require('./src/routes/client.js');
 const branchRouter = require('./src/routes/branch.js');
+const loginRouter = require('./src/routes/login.js');
 const serviceRouter = require('./src/routes/service.js');
 const employeeRouter = require('./src/routes/employee.js');
 const appointmentRouter = require('./src/routes/appointment.js');
@@ -27,6 +28,7 @@ app.get('/', (req, res) =>{
 
 app.use('/clients', clientRouter);
 app.use('/branchs', branchRouter);
+app.use('/login', loginRouter);
 app.use('/branchs/:branchId/services', serviceRouter);
 app.use('/branchs/:branchId/employees', employeeRouter);
 app.use('/appointments', appointmentRouter);

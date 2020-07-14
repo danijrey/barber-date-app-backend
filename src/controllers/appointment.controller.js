@@ -20,8 +20,8 @@ module.exports = {
   },
   async show(req, res) {
     try{
-    const { appointmentId } = req.params;
-    const appointments = await Appointment.findByPk(appointmentId);
+    const { id } = req.params;
+    const appointments = await Appointment.findByPk(id);
     res.status(200).json(appointments);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -29,8 +29,8 @@ module.exports = {
   },
   async update(req, res) {
     try{
-    const { appointmentId } = req.params;
-    let appointments = await Appointment.findByPk(appointmentId);
+    const { id } = req.params;
+    let appointments = await Appointment.findByPk(id);
     appointments = await appointments.update(req.body);
     res.status(200).json(appointments);
     } catch (error) {
@@ -39,8 +39,8 @@ module.exports = {
   },
   async delete(req, res) {
     try{
-    const { appointmentId} = req.params;
-    const appointments = await Appointment.findByPk(appointmentId);
+    const { id} = req.params;
+    const appointments = await Appointment.findByPk(id);
     await appointments.destroy();
     res.status(200).json(appointments);
     } catch (error) {

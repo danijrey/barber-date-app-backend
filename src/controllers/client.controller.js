@@ -24,19 +24,19 @@ module.exports = {
         password,
       });
 
-      const token = jwt.sign({ id: clients.clientId }, process.env.SECRET, {
+      const token = jwt.sign({ id: clients.id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
 
-      const mail = {
+  /*     const mail = {
         from: '"Cheaper Team" <cheapercolombia@aol.com>',
         to: client.clientEmail,
         subject: 'Bienvenido!',
         html: welcome(client.clientName),
-      }
-      await transporter.sendMail(mail, (err) => {
+      } */
+/*       await transporter.sendMail(mail, (err) => {
         console.log(err);
-      })
+      }) */
 
       res.status(200).json({ token });
     } catch (error) {
@@ -45,8 +45,8 @@ module.exports = {
   },
   async show(req, res) {
     try{
-    const { clientId } = req.params;
-    const clients = await Client.findByPk(clientId);
+    const { id } = req.params;
+    const clients = await Client.findByPk(id);
     res.status(200).json(clients );
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -54,8 +54,8 @@ module.exports = {
   },
   async update(req, res) {
     try{
-    const { clientId } = req.params;
-    let clients = await Client.findByPk(clientId);
+    const { id } = req.params;
+    let clients = await Client.findByPk(id);
     clients = await clients .update(req.body);
     res.status(200).json(clients );
     } catch (error) {
@@ -64,8 +64,8 @@ module.exports = {
   },
   async delete(req, res) {
     try{
-    const { clientId } = req.params;
-    const clients = await Client.findByPk(clientId);
+    const { id } = req.params;
+    const clients = await Client.findByPk(id);
     await clients .destroy();
     res.status(200).json(clients );
     } catch (error) {
