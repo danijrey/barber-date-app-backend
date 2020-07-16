@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     clientPassword: {
-    type: DataTypes.STRING.BINARY,
+    type: DataTypes.STRING,
     noEmpty: true,
     }
   }

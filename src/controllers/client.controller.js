@@ -15,18 +15,25 @@ module.exports = {
   async create(req, res) {
     try{
       const data = req.body;
-      const password = await bcrypt.hash(data.clientPassword, 8);
+
+      const password = await bcrypt.hashSync(data.clientPassword, 10);
+
       const clients = await Client.create({
         clientName: data.clientName,
         clientLastname: data.clientLastname,
         clientTelephone: data.clientTelephone,
         clientEmail: data.clientEmail,
-        password,
+        clientPassword: password,
       });
 
-      const token = jwt.sign({ id: clients.id }, process.env.SECRET, {
-        expiresIn: 60 * 60 * 24 * 365,
-      });
+
+      console.dir(password)
+
+      const token = jwt.sign(
+        { id: clients.id }, 
+        'holacarebola', 
+        { expiresIn: 60 * 60 * 24 * 365,}
+        );
 
   /*     const mail = {
         from: '"Cheaper Team" <cheapercolombia@aol.com>',

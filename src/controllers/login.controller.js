@@ -5,22 +5,29 @@ const { Client } = require('../db.js');
 module.exports = {
   async login(req, res) {
     try {
+      const data = req.body;
       console.dir(req.body)
-      const client = await Client.findOne({ clientEmail: req.body.clientEmail });
 
-      if (!client) {
+      const user = await Client.findOne({ where: { clientEmail: data.clientEmail }});
+
+      console.dir(user)
+
+      if (!user) {
         throw Error('Correo inválido');
       }
-      console.dir(client.clientPassword)
-      const isValid = await bcrypt.compare( req.body.clientPassword, client.clientPassword );
+      console.dir(user.clientPassword)
+      console.dir(data.clientPassword)
 
+      const isValid = await bcrypt.compareSync( data.clientPassword, user.clientPassword );
+
+      console.dir(isValid)
       if (!isValid) {
         throw Error('Contraseña Inválida');
       }
 
       const token = jwt.sign(
-        { id: client._id },
-        process.env.SECRET,
+        { id: user._id },
+        'holacarebola',
         { expiresIn: 60 * 60 * 24 * 365 },
       );
 

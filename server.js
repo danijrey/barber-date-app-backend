@@ -29,6 +29,8 @@ app.get('/', (req, res) =>{
 app.use('/clients', clientRouter);
 app.use('/branchs', branchRouter);
 app.use('/login', loginRouter);
+app.use('/services', serviceRouter);
+app.use('/employees', employeeRouter);
 app.use('/branchs/:branchId/services', serviceRouter);
 app.use('/branchs/:branchId/employees', employeeRouter);
 app.use('/appointments', appointmentRouter);
