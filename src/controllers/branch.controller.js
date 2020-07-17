@@ -14,9 +14,6 @@ module.exports = {
       const { branchId } = req.params;
 
       const services = await Service.findAll({ include: [Branch], where: { id: branchId } });
-      /* services.hasBranch(branchId); */
-
-
 
       res.status(200).json(services);
     } catch (error) {
@@ -25,7 +22,6 @@ module.exports = {
   },
   async create(req, res) {
   try{
-    console.log(req.body);
     const branchs = await Branch.create(req.body);
     res.status(200).json(branchs);
   } catch (error) {
@@ -67,18 +63,3 @@ module.exports = {
   }
 
 }
-/* async create(req, res) {
-  try {
-    /* const { file, ...data } = req.body;
-    console.log(req.body);
-    const branchs = await Branch.create({
-      ...data,
-      picture: file.secure_url,
-    });
-    res.status(200).json(branchs);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}, 
-
-.scope({ include: [Service]}).findByPk(id)*/

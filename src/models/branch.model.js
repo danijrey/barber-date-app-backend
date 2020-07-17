@@ -43,7 +43,5 @@ module.exports = (sequelize, DataTypes) => {
     db.Branch.hasMany(db.Appointment);
   }
 
-
-
   return Branch;
 }

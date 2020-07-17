@@ -29,7 +29,6 @@ module.exports = {
       const services = await Service
         .scope({ include: Employee })
         .findAll({ where: { id: serviceId } });
-      /* services.hasBranch(branchId); */
 
       res.status(200).json(services);
     } catch (error) {
@@ -47,9 +46,7 @@ module.exports = {
       employees.addService(serviceId);
       await employees.save();
 
-      console.log(branchId);
-
-      res.status(200).json(employees);
+       res.status(200).json(employees);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -89,28 +86,3 @@ module.exports = {
   }
 
 }
-/* 
-async create(req, res) {
-  try {
-    const { file, ...data } = req.body;
-    const employees = await Employee.create({
-      ...data,
-      picture: file.secure_url,
-    });
-    res.status(200).json(employees);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}, 
-
-,  where: { BranchId: id }
-
-
-      const employees = await Employee
-        .scope({ include: Branch })
-        .findAll({where: {BranchId : id} });
-        
-        const employees = await Branch
-        .scope({ include: Employee })
-        .findAll({ where: { id: branchId }});
-*/

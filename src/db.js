@@ -1,7 +1,6 @@
 const { Sequelize } = require('sequelize');
 
 
-
 const sequelize = new Sequelize(
   'barberapp',
   'root',
@@ -13,14 +12,6 @@ const sequelize = new Sequelize(
   }
 );
 
-/* async function testConnection(){
-  try{
-    await sequelize.authenticate();
-    console.log('Connection established successfully');
-  }catch (error){
-    console.log('Something went wrong!', error);
-  }
-} */
 
 const db ={
   Sequelize,

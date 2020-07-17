@@ -6,21 +6,18 @@ module.exports = {
   async login(req, res) {
     try {
       const data = req.body;
-      console.dir(req.body)
+      let clientId = 0;
 
       const user = await Client.findOne({ where: { clientEmail: data.clientEmail }});
-
-      console.dir(user)
+           
+        clientId = user.id;
 
       if (!user) {
         throw Error('Correo inválido');
       }
-      console.dir(user.clientPassword)
-      console.dir(data.clientPassword)
 
       const isValid = await bcrypt.compareSync( data.clientPassword, user.clientPassword );
 
-      console.dir(isValid)
       if (!isValid) {
         throw Error('Contraseña Inválida');
       }
@@ -31,7 +28,7 @@ module.exports = {
         { expiresIn: 60 * 60 * 24 * 365 },
       );
 
-      res.status(200).json({ token });
+      res.status(200).json({ token, clientId });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

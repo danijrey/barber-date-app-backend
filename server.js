@@ -10,12 +10,8 @@ const serviceRouter = require('./src/routes/service.js');
 const employeeRouter = require('./src/routes/employee.js');
 const appointmentRouter = require('./src/routes/appointment.js');
 
-
-
-
 const port = process.env.PORT || 8080;
 
-/* testConnection(); */
 const app = express();
 
 app.use(express.json());
@@ -34,9 +30,6 @@ app.use('/employees', employeeRouter);
 app.use('/branchs/:branchId/services', serviceRouter);
 app.use('/branchs/:branchId/employees', employeeRouter);
 app.use('/appointments', appointmentRouter);
-
-
-
 
 sequelize.sync();
 

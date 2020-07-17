@@ -69,7 +69,3 @@ module.exports = {
   }
 
 }
-
-/* const { branchId } = req.params;
-
-const services = await Service.scope({ include: Branch }).findAll(); */

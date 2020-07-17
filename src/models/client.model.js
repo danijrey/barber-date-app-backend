@@ -44,9 +44,3 @@ module.exports = (sequelize, DataTypes) => {
   return Client;
 }
 
-/* defaultScope: {
-  attributes: {
-    exclude: ['clientPassword'],
-      } 
-      
-      .BINARY*/

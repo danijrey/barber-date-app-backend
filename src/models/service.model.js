@@ -37,6 +37,5 @@ module.exports = (sequelize, DataTypes) => {
     db.Service.hasMany(db.Appointment);
   }
   
-
   return Service;
 }

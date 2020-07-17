@@ -25,16 +25,15 @@ module.exports = {
         clientEmail: data.clientEmail,
         clientPassword: password,
       });
-
-
-      console.dir(password)
-
+   
       const token = jwt.sign(
         { id: clients.id }, 
         'holacarebola', 
         { expiresIn: 60 * 60 * 24 * 365,}
         );
 
+      let clientId = clients.id;
+      
   /*     const mail = {
         from: '"Cheaper Team" <cheapercolombia@aol.com>',
         to: client.clientEmail,
@@ -45,7 +44,7 @@ module.exports = {
         console.log(err);
       }) */
 
-      res.status(200).json({ token });
+      res.status(200).json({ token, clientId });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
