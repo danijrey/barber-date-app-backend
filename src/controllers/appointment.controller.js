@@ -18,6 +18,15 @@ module.exports = {
       res.status(400).json({ message: error.message });
     }
   },
+  async find(req, res) {
+    try {
+      const { id } = req.params;
+      const appointments = await Appointment.findByPk(id);
+      res.status(200).json(appointments);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
   async show(req, res) {
     try{
     const { id } = req.params;
